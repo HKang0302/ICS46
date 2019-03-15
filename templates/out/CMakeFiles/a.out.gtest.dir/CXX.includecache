@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../core/Point.hpp
+cmath
+-
+
+/home/ics46/projects/templates/gtest/PointTests.cpp
+gtest/gtest.h
+-
+cmath
+-
+string
+-
+Point.hpp
+/home/ics46/projects/templates/gtest/Point.hpp
+
+/home/ics46/projects/templates/gtest/gtestmain.cpp
+gtest/gtest.h
+-
+

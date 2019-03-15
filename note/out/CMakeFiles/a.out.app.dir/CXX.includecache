@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ics46/projects/note/app/Queue.cpp
+Queue.hpp
+/home/ics46/projects/note/app/Queue.hpp
+
+/home/ics46/projects/note/app/Queue.hpp
+
+/home/ics46/projects/note/app/main.cpp
+vector
+-
+string
+-
+iostream
+-
+

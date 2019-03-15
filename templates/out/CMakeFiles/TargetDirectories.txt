@@ -1,0 +1,5 @@
+/home/ics46/projects/templates/out/CMakeFiles/edit_cache.dir
+/home/ics46/projects/templates/out/CMakeFiles/a.out.app.dir
+/home/ics46/projects/templates/out/CMakeFiles/a.out.exp.dir
+/home/ics46/projects/templates/out/CMakeFiles/a.out.gtest.dir
+/home/ics46/projects/templates/out/CMakeFiles/rebuild_cache.dir

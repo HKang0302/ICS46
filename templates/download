@@ -1,0 +1,92 @@
+#!/bin/bash
+
+
+SCRIPT_DIR=$(readlink -m $(dirname $0))
+TEMP_DIR=$(mktemp -d)
+
+
+trap cleanup EXIT
+set -e
+
+
+function cleanup()
+{
+    rm -rf $TEMP_DIR
+}
+
+
+function print_usage_message()
+{
+    echo "Specify the name of the example that you've like to download."
+    echo "For example, if you wanted to download the Templates"
+    echo "example, you would say:"
+    echo
+    echo "    ./download Templates"
+    echo
+    echo "You can also download examples from this instructor's most"
+    echo "recent version of ICS 45C, by including an additional"
+    echo "parameter '45c', like this:"
+    echo
+    echo "    ./download SeparateCompilation 45c"
+    echo
+    exit 1
+}
+
+
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+    print_usage_message
+fi
+
+
+EXAMPLE_NAME=$1
+EXAMPLE_FILENAME=$EXAMPLE_NAME.tar.gz
+
+if [ "$2" == "45c" ] || [ "$2" == "45C" ]; then
+    COURSE="www.ics.uci.edu/~thornton/ics45c"
+else
+    COURSE="www.ics.uci.edu/~sgagomas/ics46"
+fi
+
+EXAMPLE_URL="http://$COURSE/Notes/$EXAMPLE_NAME/$EXAMPLE_FILENAME"
+
+echo Downloading example files from $EXAMPLE_URL ...
+
+wget $EXAMPLE_URL --output-document=$TEMP_DIR/$EXAMPLE_FILENAME
+
+echo Extracting files...
+mkdir $TEMP_DIR/code
+tar xzf $TEMP_DIR/$EXAMPLE_FILENAME -C $TEMP_DIR/code/
+
+echo Copying code into this project...
+
+if [ -e $TEMP_DIR/code/app ]; then
+    rm -rf $SCRIPT_DIR/app
+    mkdir $SCRIPT_DIR/app
+    cp -r $TEMP_DIR/code/app/* $SCRIPT_DIR/app
+fi
+
+if [ -e $TEMP_DIR/code/core ]; then
+    rm -rf $SCRIPT_DIR/core
+    mkdir $SCRIPT_DIR/core
+    cp -r $TEMP_DIR/code/core/* $SCRIPT_DIR/core
+fi
+
+if [ -e $TEMP_DIR/code/exp ]; then
+    rm -rf $SCRIPT_DIR/exp
+    mkdir $SCRIPT_DIR/exp
+    cp -r $TEMP_DIR/code/exp/* $SCRIPT_DIR/exp
+fi
+
+if [ -e $TEMP_DIR/code/gtest ]; then
+    rm -rf $SCRIPT_DIR/gtest
+    mkdir $SCRIPT_DIR/gtest
+    cp -r $TEMP_DIR/code/gtest/* $SCRIPT_DIR/gtest
+fi
+
+
+echo Cleaning previously-compiled files, if any...
+$SCRIPT_DIR/clean
+
+echo "Done!  The files that make up the $EXAMPLE_NAME example"
+echo "are now available in this project."
+
